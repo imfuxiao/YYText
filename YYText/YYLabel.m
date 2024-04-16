@@ -1080,6 +1080,9 @@ static dispatch_queue_t YYLabelGetReleaseQueue() {
     YYTextAsyncLayerDisplayTask *task = [YYTextAsyncLayerDisplayTask new];
     
     task.willDisplay = ^(CALayer *layer) {
+        [CATransaction begin];
+        [CATransaction setDisableActions:TRUE];
+      
         [layer removeAnimationForKey:@"contents"];
         
         // If the attachment is not in new layout, or we don't know the new layout currently,
@@ -1100,6 +1103,8 @@ static dispatch_queue_t YYLabelGetReleaseQueue() {
         }
         [attachmentViews removeAllObjects];
         [attachmentLayers removeAllObjects];
+      
+        [CATransaction commit];
     };
 
     task.display = ^(CGContextRef context, CGSize size, BOOL (^isCancelled)(void)) {
@@ -1135,6 +1140,9 @@ static dispatch_queue_t YYLabelGetReleaseQueue() {
     };
 
     task.didDisplay = ^(CALayer *layer, BOOL finished) {
+      [CATransaction begin];
+      [CATransaction setDisableActions:TRUE];
+      
         YYTextLayout *drawLayout = layout;
         if (layoutUpdated && shrinkLayout) {
             drawLayout = shrinkLayout;
@@ -1152,8 +1160,11 @@ static dispatch_queue_t YYLabelGetReleaseQueue() {
                     }
                 }
             }
+          
+            [CATransaction commit];
             return;
         }
+      
         [layer removeAnimationForKey:@"contents"];
         
         __strong YYLabel *view = (YYLabel *)layer.delegate;
@@ -1200,6 +1211,8 @@ static dispatch_queue_t YYLabelGetReleaseQueue() {
 //            transition.type = kCATransitionFade;
 //            [layer addAnimation:transition forKey:@"contents"];
 //        }
+      
+        [CATransaction commit];
     };
     
     return task;
