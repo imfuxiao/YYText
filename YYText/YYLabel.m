@@ -1187,19 +1187,19 @@ static dispatch_queue_t YYLabelGetReleaseQueue() {
             else if ([a.content isKindOfClass:[CALayer class]]) [attachmentLayers addObject:a.content];
         }
         
-        if (contentsNeedFade) {
-            CATransition *transition = [CATransition animation];
-            transition.duration = kHighlightFadeDuration;
-            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-            transition.type = kCATransitionFade;
-            [layer addAnimation:transition forKey:@"contents"];
-        } else if (fadeForAsync) {
-            CATransition *transition = [CATransition animation];
-            transition.duration = kAsyncFadeDuration;
-            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-            transition.type = kCATransitionFade;
-            [layer addAnimation:transition forKey:@"contents"];
-        }
+//        if (contentsNeedFade) {
+//            CATransition *transition = [CATransition animation];
+//            transition.duration = kHighlightFadeDuration;
+//            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+//            transition.type = kCATransitionFade;
+//            [layer addAnimation:transition forKey:@"contents"];
+//        } else if (fadeForAsync) {
+//            CATransition *transition = [CATransition animation];
+//            transition.duration = kAsyncFadeDuration;
+//            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+//            transition.type = kCATransitionFade;
+//            [layer addAnimation:transition forKey:@"contents"];
+//        }
     };
     
     return task;
